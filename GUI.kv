@@ -1,0 +1,55 @@
+<ScreenManagement>:
+
+    MainScreen:
+        name: "main_screen"
+        id: main_screen
+    ShowResult:
+        name: "show_result"
+
+
+
+<MainScreen>:
+    FloatLayout:
+        id: main_screen
+        Camera:
+            id: camera
+            resolution: (800, 800)
+            play: True
+            allow_stretch: True
+            center: self.size and main_screen.center
+            size: main_screen.height, main_screen.width
+
+
+        Button:
+            text: 'Capture'
+            font_size: 35
+            size_hint_y: None
+            height: '60dp'
+            on_press:
+                root.capture()   #TAKE PHOTO
+                root.manager.transition.direction = 'up'
+                root.manager.transition.duration = 1
+                root.manager.current = 'show_result'
+
+
+<ShowResult>:
+    FloatLayout:
+
+        orientation: "vertical"
+
+        Image:
+            id: img
+            size_hint: 0.3, 0.4
+            pos_hint: {'center_x': 0.5, 'center_y': 0.75}
+        Label:
+            text: root.Result_Breads
+            font_size: 20
+            pos_hint: {"top":0.9}
+
+        Button:
+            text: 'Back to Camera'
+            font_size: 30
+            size_hint_y: None
+            height: '60dp'
+            on_press: root.manager.current = 'main_screen'
+
